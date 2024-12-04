@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
-import { headerNav } from "../constants";
+import React, { useContext } from "react";
+import { FormControlLabel } from "@mui/material";
+import { styled } from "@mui/system"; // styled 사용
 import ThemeContext from "../context/ThemeContext";
-import { styled } from "@mui/system";
-import { Switch } from "@mui/material";
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+// MaterialUI Switch 커스텀
+const MaterialUISwitch = styled("span")(({ theme }) => ({
 	width: 62,
 	height: 34,
 	padding: 7,
+	display: "inline-block",
+	position: "relative",
 	"& .MuiSwitch-switchBase": {
 		margin: 1,
 		padding: 0,
@@ -51,66 +53,21 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 	},
 }));
 
-const Header = () => {
-	const [show, setShow] = useState(false);
+const ThemeToggle = () => {
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
-	const toggleMenu = () => {
-		setShow((prevShow) => !prevShow);
-	};
-
 	return (
-		<header id="header" role="banner">
-			<div className="header__inner">
-				<nav
-					className={`header__nav ${
-						show ? "show" : ""
-					}`}
-					role="navigation"
-					aria-label="메인메뉴"
-				>
-					<ul>
-						{headerNav.map((nav, key) => (
-							<li key={key}>
-								<a
-									href={
-										nav.url
-									}
-								>
-									{
-										nav.title
-									}
-								</a>
-							</li>
-						))}
-						<li>
-							<div className="header__darkmode-toggle">
-								<MaterialUISwitch
-									checked={
-										isDarkMode
-									}
-									onChange={
-										toggleTheme
-									}
-								/>
-							</div>
-						</li>
-					</ul>
-				</nav>
-				<div
-					className="header__nav__mobile"
-					id="headerToggle"
-					aria-controls="primary-menu"
-					aria-expanded={show ? "true" : "false"}
-					role="button"
-					tabIndex="0"
-					onClick={toggleMenu}
-				>
-					<span></span>
-				</div>
-			</div>
-		</header>
+		<FormControlLabel
+			control={
+				<MaterialUISwitch
+					checked={isDarkMode}
+					onChange={toggleTheme}
+					theme={isDarkMode ? "dark" : "light"} // 다크 모드 지원
+				/>
+			}
+			label={isDarkMode ? "Dark Mode" : "Light Mode"}
+		/>
 	);
 };
 
-export default Header;
+export default ThemeToggle;

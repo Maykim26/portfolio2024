@@ -26,4 +26,10 @@
 	left: 0;
 	top: 0;
 	width: 100%;
+} // 상단 고정
+@mixin position-fixed-bottom {
+	position: fixed;
+	left: 0;
+	bottom: 70px;
+	width: 100%;
 }

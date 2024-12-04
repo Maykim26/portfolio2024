@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import "./index.css";
 import "./assets/scss/style.scss";
+import App from "./App";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
+	<ThemeProvider>
+		<App /> {/* App.js에서 Router를 사용하도록 수정 */}
+	</ThemeProvider>
 );
